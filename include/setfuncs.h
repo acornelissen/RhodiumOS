@@ -61,7 +61,7 @@ void setLensDistance(bool force_refresh = false)
     lens_distance_raw = ((lenses[selected_lens].focal_length * lenses[selected_lens].focal_length + 2 * lens_movement_mm * lenses[selected_lens].focal_length) / lens_movement_mm) / 10;
   
     if (selected_diopter > 0) {
-     lens_distance_raw = 1.0 / ((1.0 / lens_distance_raw) + (selected_diopter / 100.0));
+     lens_distance_raw = ((lenses[selected_lens].focal_length / 1000) * selected_diopter) * lens_distance_raw;
     }
   }
 
