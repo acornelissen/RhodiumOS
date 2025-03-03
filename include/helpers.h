@@ -9,17 +9,17 @@ void loadPrefs()
 
   if (prefs.isKey("iso")) {
     iso = prefs.getInt("iso", 400);
-    iso_index = prefs.getInt("iso_index", 5);
+    iso_index = prefs.getInt("iso_idx", 5);
 
     byte tempLenses[sizeof(lenses)];
     prefs.getBytes("lenses", tempLenses, sizeof(lenses));
     memcpy(lenses, tempLenses, sizeof(lenses));
 
-    selected_lens = prefs.getInt("selected_lens", 1);
-    selected_diopter = prefs.getInt("selected_diopter", 0);
+    selected_lens = prefs.getInt("lens", 1);
+    selected_diopter = prefs.getInt("dptr", 0);
 
     aperture = prefs.getFloat("aperture", APERTURES[0]);
-    aperture_index = prefs.getInt("aperture_index", 0);
+    aperture_index = prefs.getInt("aperture_idx", 0);
 
     lgmode = prefs.getBool("lgmode", false);
 
@@ -32,11 +32,11 @@ void savePrefs()
 {
   prefs.begin("mrf", false);
   prefs.putInt("iso", iso);
-  prefs.putInt("iso_index", iso_index);
+  prefs.putInt("iso_idx", iso_index);
   prefs.putFloat("aperture", aperture);
-  prefs.putInt("aperture_index", aperture_index);
-  prefs.putInt("selected_lens", selected_lens);
-  prefs.putInt("selected_diopter", selected_diopter);
+  prefs.putInt("aperture_idx", aperture_index);
+  prefs.putInt("lens", selected_lens);
+  prefs.putInt("dptr", selected_diopter);
   prefs.putBool("lgmode", lgmode);
   prefs.putBytes("lenses", (byte *)lenses, sizeof(lenses));
   prefs.end();

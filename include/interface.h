@@ -31,7 +31,7 @@ void drawMainUI()
 
   if (selected_diopter > 0) {
     u8g2.print(F("Lens+"));
-    u8g2.print(DIOPTERS[selected_diopter]);
+    u8g2.print(selected_diopter);
     u8g2.print(F(":"));
   }
   else {

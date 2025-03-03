@@ -50,23 +50,35 @@ void setLensDistance(bool force_refresh = false)
   float lens_movement_mm = map(lens_sensor_reading, lenses[selected_lens].sensor_reading[0], lenses[selected_lens].sensor_reading[1], LENS_MOVEMENT_MM_MIN * 1000, LENS_MOVEMENT_MM_MAX * 1000) / 1000.00;
   lens_movement_mm = (LENS_MOVEMENT_MULTIPLIER * lens_movement_mm) / LENS_MOVEMENT_MM_MAX;
 
+  // If we're in Lomograflok mode, we need to add the offset and adjust the lens movement
   if (lgmode) {
     lens_movement_mm = (LOMOGRAFLOK_OFFSET * lens_movement_mm) / LENS_MOVEMENT_MM_MAX;
     lens_movement_mm = lens_movement_mm + LOMOGRAFLOK_OFFSET;
   }
 
 
-  lens_distance_raw = 9999999;
-  if (lens_movement_mm > 0) {
-    lens_distance_raw = ((lenses[selected_lens].focal_length * lenses[selected_lens].focal_length + 2 * lens_movement_mm * lenses[selected_lens].focal_length) / lens_movement_mm) / 10;
+  // Infinity at 0mm lens movement
+  lens_distance_raw = 9999999; 
   
+  // When we have a close-up filter selected, we need to set "infinity" to the filter's furthest focus distance
+  if (selected_diopter > 0) {
+    lens_distance_raw = DIOPTERS[selected_diopter];
+  }
+
+  float focal_length = lenses[selected_lens].focal_length;
+  if (lens_movement_mm > 0) {
+
+    // Calculate the lens distance in cm using a swopped around version of: [distance = (focal_length^2) / (focus_distance - (focal_length*2))] - thanks Oscar!
+    lens_distance_raw = ((focal_length * focal_length + 2 * lens_movement_mm * focal_length) / lens_movement_mm) / 10;
+
+    // If we have a close-up filter selected, we need to adjust the lens focus distance
     if (selected_diopter > 0) {
-     lens_distance_raw = ((lenses[selected_lens].focal_length / 1000) * selected_diopter) * lens_distance_raw;
+      float magnification = focal_length / DIOPTERS[selected_diopter];
+      lens_distance_raw = magnification * lens_distance_raw;
     }
   }
 
   if (lens_sensor_reading != prev_lens_sensor_reading || force_refresh) {
-    
     if (abs(lens_sensor_reading - prev_lens_sensor_reading) > 2) {
         lastActivityTime = millis();
     }
@@ -80,11 +92,12 @@ void setLensDistance(bool force_refresh = false)
       lens_sensor_reading  = lenses[selected_lens].sensor_reading[0];
     }
 
-  if (lens_distance_raw >=  9999999 && lgmode == false && selected_diopter == 0) {
+    if (lens_distance_raw >=  9999999 && lgmode == false && selected_diopter == 0) {
         lens_distance_cm = "Inf.";
     }
     else {
-      lens_distance_cm = cmToReadable(lens_distance_raw);
+        lens_distance_cm = cmToReadable(lens_distance_raw);
+      }
     }
   }
    
