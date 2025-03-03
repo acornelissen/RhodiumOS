@@ -73,7 +73,7 @@ void setLensDistance(bool force_refresh = false)
 
     // If we have a close-up filter selected, we need to adjust the lens focus distance
     if (selected_diopter > 0) {
-      float magnification = focal_length / DIOPTERS[selected_diopter];
+      float magnification = focal_length / (DIOPTERS[selected_diopter] * 10);
       lens_distance_raw = magnification * lens_distance_raw;
     }
   }

@@ -81,7 +81,7 @@ void loop() {
   if (sleepMode)
   {
     toggleLidar();
-    drawSleepUI();
+    drawTextUI("ZZZZZZZZZzzzzzZZzzZZzzzz....");
   }
   else {
     toggleLidar();

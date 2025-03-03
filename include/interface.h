@@ -81,7 +81,7 @@ void drawMainUI()
   display.display();
 }
 
-void drawSleepUI() {
+void drawTextUI(const char* text) {
   display.clearDisplay();
 
   u8g2.setFontMode(1);
@@ -90,7 +90,6 @@ void drawSleepUI() {
   u8g2.setFont(u8g2_font_4x6_mf);
   
   // Calculate the width of the text to be centered
-  const char* text = "ZZZZZZZZZzzzzzZZzzZZzzzz....";
   int16_t textWidth = u8g2.getUTF8Width(text);
 
   // Calculate the x position to center the text
@@ -182,7 +181,7 @@ void drawConfigUI()
   }
   u8g2.setCursor(3, 59);
   u8g2.print(F(" Diopter:"));
-  u8g2.print(DIOPTERS[selected_diopter]);
+  u8g2.print(selected_diopter);
   u8g2.print(F(" "));
 
   if (config_step == 4)
@@ -214,11 +213,13 @@ void drawConfigUI()
   u8g2.setBackgroundColor(BLACK);
   u8g2.setForegroundColor(WHITE);
 
+  u8g2.setFont(u8g2_font_micro_mr);
   u8g2.setCursor(3, 95);
   u8g2.print(F(" [Top] to Select"));
   u8g2.setCursor(3, 105);
   u8g2.print(F(" [Bottom] to Cycle"));
 
+  u8g2.setFont(u8g2_font_4x6_mf);
   u8g2.setCursor(3, 120);
   u8g2.print(F(" IDENTIDEM.design RhodiumOS "));
   u8g2.print(FWVERSION);

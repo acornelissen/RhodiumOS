@@ -29,7 +29,7 @@ const float APERTURES[] = {5.6, 8, 11, 16, 22, 32, 45};
 #define LENS_MOVEMENT_MM_MAX 30  // Lens movement in mm - this is actually the max amount that the RF arm moves
 #define LENS_MOVEMENT_MM_MIN 0  // Lens movement in mm - this is actually the min amount that the RF arm moves
 #define LENS_MOVEMENT_MULTIPLIER 8  // This is the actual max range of movement at the lens board
-const int DIOPTERS[] = {0, 1000, 500, 333, 250};  // Diopter values
+const int DIOPTERS[] = {0, 100, 50, 33, 25};  // Diopter values
 const String CALIB_DISTANCES[] = {"Inf.", "Close"}; // Calibration distances
 
 // Lomograflok rangefinder constants and variables

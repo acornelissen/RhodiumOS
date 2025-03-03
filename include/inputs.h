@@ -3,7 +3,14 @@
 void checkButtons()
 {
     lbutton.update();
-    if (lbutton.rose() && lbutton.previousDuration() < 1000)
+    if (lbutton.isPressed() && lbutton.currentDuration() >= 5000 && ui_mode == "config") 
+    {
+      clearPrefs();
+      drawTextUI("Settings Cleared!");
+      delay(2000);
+      ui_mode = "main";
+    }
+    else if (lbutton.rose() && lbutton.previousDuration() < 1000)
     {
       lastActivityTime = millis();
       if (sleepMode == true) {
@@ -47,10 +54,6 @@ void checkButtons()
     if (ui_mode == "main")
     {
       ui_mode = "config";
-    }
-    else if (ui_mode == "config") // Reset all settings to default
-    {
-      clearPrefs();
     }
   }
   else if (rbutton.rose() && rbutton.previousDuration() < 1000)
