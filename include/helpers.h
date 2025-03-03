@@ -42,6 +42,16 @@ void savePrefs()
   prefs.end();
 }
 
+void clearPrefs()
+{
+  prefs.begin("mrf", false);
+  prefs.clear();
+  prefs.end();
+
+  loadPrefs();
+  savePrefs();
+}
+
 
 String cmToReadable(int cm)
 {

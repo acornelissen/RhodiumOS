@@ -48,6 +48,10 @@ void checkButtons()
     {
       ui_mode = "config";
     }
+    else if (ui_mode == "config") // Reset all settings to default
+    {
+      clearPrefs();
+    }
   }
   else if (rbutton.rose() && rbutton.previousDuration() < 1000)
   {
