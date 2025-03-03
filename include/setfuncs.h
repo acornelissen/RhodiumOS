@@ -97,10 +97,8 @@ void setLensDistance(bool force_refresh = false)
     }
     else {
         lens_distance_cm = cmToReadable(lens_distance_raw);
-      }
     }
   }
-   
 }
 
 void setVoltage()
