@@ -1,6 +1,8 @@
-# RhodiumOS
+# Rhodium M / RhodiumOS
 
-PlatformIO project for Arduino / ESP32 firmware for the LiDAR RF version of the Panomicron Rhodium.
+- Firmware folder has the PlatformIO project for Arduino / ESP32 firmware for the LiDAR RF version of the Panomicron Rhodium.
+- CAD folder contains STEP file
+- PCB folder contains Gerbers
 
 ### Credits:
 
