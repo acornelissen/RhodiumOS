@@ -10,7 +10,9 @@ void setDistance()
 
   if (distance)
   { // Get data from Lidar
+ 
     distance_display = distance + LIDAR_OFFSET;
+   
     if ( distance_display != prev_distance)
     {
       if ( distance_display >= DISTANCE_MAX)
@@ -59,11 +61,6 @@ void setLensDistance(bool force_refresh = false)
 
   // Infinity at 0mm lens movement
   lens_distance_raw = 9999999; 
-  
-  // When we have a close-up filter selected, we need to set "infinity" to the filter's furthest focus distance
-  if (selected_diopter > 0) {
-    lens_distance_raw = DIOPTERS[selected_diopter];
-  }
 
   float focal_length = lenses[selected_lens].focal_length;
   if (lens_movement_mm > 0) {
@@ -71,11 +68,6 @@ void setLensDistance(bool force_refresh = false)
     // Calculate the lens distance in cm using a swopped around version of: [distance = (focal_length^2) / (focus_distance - (focal_length*2))] - thanks Oscar!
     lens_distance_raw = ((focal_length * focal_length + 2 * lens_movement_mm * focal_length) / lens_movement_mm) / 10;
 
-    // If we have a close-up filter selected, we need to adjust the lens focus distance
-    if (selected_diopter > 0) {
-      float magnification = focal_length / (DIOPTERS[selected_diopter] * 10);
-      lens_distance_raw = magnification * lens_distance_raw;
-    }
   }
 
   if (lens_sensor_reading != prev_lens_sensor_reading || force_refresh) {
